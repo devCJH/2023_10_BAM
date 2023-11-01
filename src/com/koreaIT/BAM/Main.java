@@ -64,6 +64,27 @@ public class Main {
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 
+				Article foundArticle = null;
+				
+				for (int i = 0; i < articles.size(); i++) {
+					Article article = articles.get(i);
+					
+					if (article.id == id) {
+						foundArticle = article;
+						break;
+					}
+				}
+				
+				if (foundArticle == null) {
+					System.out.printf("%d번 게시물은 존재하지 않습니다\n", id);
+					continue;
+				}
+				
+				System.out.printf("== %d번 게시물 상세보기 ==\n", foundArticle.id);
+				System.out.printf("번호 : %d\n", foundArticle.id);
+				System.out.printf("제목 : %s\n", foundArticle.title);
+				System.out.printf("내용 : %s\n", foundArticle.body);
+				
 			} else {
 				System.out.println("존재하지 않는 명령어 입니다");
 			}
