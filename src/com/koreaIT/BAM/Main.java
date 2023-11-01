@@ -108,6 +108,7 @@ public class Main {
 					continue;
 				}
 				
+//				articles.remove(foundArticle);
 				articles.remove(foundIndex);
 				
 				System.out.printf("%d번 게시물이 삭제되었습니다\n", id);
