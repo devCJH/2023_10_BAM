@@ -5,14 +5,17 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.koreaIT.BAM.dto.Article;
+import com.koreaIT.BAM.dto.Member;
 import com.koreaIT.BAM.util.Util;
 
 public class App {
 	
 	List<Article> articles;
+	List<Member> members;
 	
 	App() {
 		articles = new ArrayList<>();
+		members = new ArrayList<>();
 	}
 	
 	void run() {
@@ -23,6 +26,7 @@ public class App {
 		Scanner sc = new Scanner(System.in);
 		
 		int lastArticleId = 3;
+		int lastMemberId = 0;
 
 		while (true) {
 
@@ -38,7 +42,28 @@ public class App {
 			if (cmd.equals("exit")) {
 				break;
 			}
-			if (cmd.equals("article write")) {
+			
+			if (cmd.equals("member join")) {
+				System.out.println("== member join ==");
+				
+				lastMemberId++;
+				String regDate = Util.getDate();
+				System.out.printf("아이디 : ");
+				String loginId = sc.nextLine();
+				System.out.printf("비밀번호 : ");
+				String loginPw = sc.nextLine();
+				System.out.printf("비밀번호 확인 : ");
+				String loginPwChk = sc.nextLine();
+				System.out.printf("이름 : ");
+				String name = sc.nextLine();
+
+				Member member = new Member(lastArticleId, regDate, loginId, loginPw, name);
+
+				members.add(member);
+
+				System.out.println(name + "회원님이 가입되었습니다");
+
+			} else if (cmd.equals("article write")) {
 				System.out.println("== article write ==");
 				lastArticleId++;
 				String regDate = Util.getDate();
