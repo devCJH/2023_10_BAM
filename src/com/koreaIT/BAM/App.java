@@ -57,7 +57,7 @@ public class App {
 				System.out.printf("이름 : ");
 				String name = sc.nextLine();
 
-				Member member = new Member(lastArticleId, regDate, loginId, loginPw, name);
+				Member member = new Member(lastMemberId, regDate, loginId, loginPw, name);
 
 				members.add(member);
 
