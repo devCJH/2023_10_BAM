@@ -12,10 +12,12 @@ public class App {
 	
 	private List<Article> articles;
 	private List<Member> members;
+	private Member loginedMember;
 	
 	public App() {
 		this.articles = new ArrayList<>();
 		this.members = new ArrayList<>();
+		this.loginedMember = null;
 	}
 	
 	public void run() {
@@ -44,6 +46,12 @@ public class App {
 			}
 			
 			if (cmd.equals("member join")) {
+				
+				if (this.loginedMember != null) {
+					System.out.println("로그아웃 후 이용해주세요");
+					continue;
+				}
+				
 				System.out.println("== member join ==");
 				
 				lastMemberId++;
@@ -115,7 +123,47 @@ public class App {
 
 				System.out.println(name + "회원님이 가입되었습니다");
 
+			} else if (cmd.equals("member login")) {
+				
+				if (this.loginedMember != null) {
+					System.out.println("로그아웃 후 이용해주세요");
+					continue;
+				}
+				
+				System.out.println("== member login ==");
+				
+				System.out.printf("아이디 : ");
+				String loginId = sc.nextLine().trim();
+				System.out.printf("비밀번호 : ");
+				String loginPw = sc.nextLine().trim();
+				
+				Member member = getMemberByLoginId(loginId);
+				
+				if (member == null) {
+					System.out.printf("%s은(는) 존재하지 않는 아이디입니다\n", loginId);
+					continue;
+				}
+				
+				if (member.loginPw.equals(loginPw) == false) {
+					System.out.println("비밀번호를 확인해주세요");
+					continue;
+				}
+				
+				this.loginedMember = member;
+				System.out.printf("%s님 환영합니다~\n", member.name);
+
+			} else if (cmd.equals("member logout")) {
+				
+				if (this.loginedMember == null) {
+					System.out.println("로그인 후 이용해주세요");
+					continue;
+				}
+				
+				this.loginedMember = null;
+				System.out.println("로그아웃 되었습니다");
+				
 			} else if (cmd.equals("article write")) {
+			
 				System.out.println("== article write ==");
 				lastArticleId++;
 				String regDate = Util.getDate();
@@ -256,6 +304,15 @@ public class App {
 		System.out.println("== 프로그램 종료 ==");
 	}
 	
+	private Member getMemberByLoginId(String loginId) {
+		for (Member member : members) {
+			if (member.loginId.equals(loginId)) {
+				return member;
+			}
+		}
+		return null;
+	}
+
 	private Article getArticleById(int id) {
 		for (Article article : articles) {
 			if (article.id == id) {
