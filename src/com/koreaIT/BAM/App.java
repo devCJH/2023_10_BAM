@@ -14,8 +14,8 @@ public class App {
 	private List<Member> members;
 	
 	public App() {
-		articles = new ArrayList<>();
-		members = new ArrayList<>();
+		this.articles = new ArrayList<>();
+		this.members = new ArrayList<>();
 	}
 	
 	public void run() {
@@ -192,16 +192,7 @@ public class App {
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 
-				Article foundArticle = null;
-				
-				for (int i = 0; i < articles.size(); i++) {
-					Article article = articles.get(i);
-					
-					if (article.id == id) {
-						foundArticle = article;
-						break;
-					}
-				}
+				Article foundArticle = getArticleById(id);
 				
 				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 존재하지 않습니다\n", id);
@@ -219,16 +210,7 @@ public class App {
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 
-				Article foundArticle = null;
-				
-				for (int i = 0; i < articles.size(); i++) {
-					Article article = articles.get(i);
-					
-					if (article.id == id) {
-						foundArticle = article;
-						break;
-					}
-				}
+				Article foundArticle = getArticleById(id);
 				
 				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 존재하지 않습니다\n", id);
@@ -252,23 +234,14 @@ public class App {
 				String[] cmdBits = cmd.split(" ");
 				int id = Integer.parseInt(cmdBits[2]);
 
-				int foundIndex = -1;
+				Article foundArticle = getArticleById(id);
 				
-				for (int i = 0; i < articles.size(); i++) {
-					Article article = articles.get(i);
-					
-					if (article.id == id) {
-						foundIndex = i;
-						break;
-					}
-				}
-				
-				if (foundIndex == -1) {
+				if (foundArticle == null) {
 					System.out.printf("%d번 게시물은 존재하지 않습니다\n", id);
 					continue;
 				}
 				
-				articles.remove(foundIndex);
+				articles.remove(foundArticle);
 				
 				System.out.printf("%d번 게시물이 삭제되었습니다\n", id);
 				
@@ -283,6 +256,15 @@ public class App {
 		System.out.println("== 프로그램 종료 ==");
 	}
 	
+	private Article getArticleById(int id) {
+		for (Article article : articles) {
+			if (article.id == id) {
+				return article;
+			}
+		}
+		return null;
+	}
+
 	private boolean isLoginIdDup(String loginId) {
 		for (Member member : members) {
 			if (member.loginId.equals(loginId)) {
