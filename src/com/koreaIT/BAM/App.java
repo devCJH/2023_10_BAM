@@ -28,7 +28,7 @@ public class App {
 		Scanner sc = new Scanner(System.in);
 		
 		int lastArticleId = 3;
-		int lastMemberId = 0;
+		int lastMemberId = 2;
 
 		while (true) {
 
@@ -335,6 +335,9 @@ public class App {
 		articles.add(new Article(1, Util.getDate(), "제목1", "내용1"));
 		articles.add(new Article(2, Util.getDate(), "제목2", "내용2"));
 		articles.add(new Article(3, Util.getDate(), "제목3", "내용3"));
-		System.out.println("테스트용 게시물 데이터 3개를 생성했습니다");
+		
+		members.add(new Member(1, Util.getDate(), "test1", "test1", "유저1"));
+		members.add(new Member(2, Util.getDate(), "test2", "test2", "유저2"));
+		System.out.println("테스트용 게시물 데이터 3개, 회원 데이터 2개를 생성했습니다");
 	}
 }
