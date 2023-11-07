@@ -233,11 +233,20 @@ public class App {
 				}
 				
 				System.out.println("== article list ==");
-				System.out.println("번호	|		날짜		|	제목");
+				System.out.println("번호	|		날짜		|	제목	|	작성자");
 				for (int i = forPrintArticle.size() - 1; i >= 0; i--) {
 					Article article = forPrintArticle.get(i);
 					
-					System.out.printf("%d	|	%s	|	%s\n", article.id, article.regDate, article.title);
+					String writerName = null;
+					
+					for (Member member : members) {
+						if (member.id == article.memberId) {
+							writerName = member.name;
+							break;
+						}
+					}
+					
+					System.out.printf("%d	|	%s	|	%s	|	%s\n", article.id, article.regDate, article.title, writerName);
 				}
 
 			} else if (cmd.startsWith("article detail ")) {
@@ -252,9 +261,19 @@ public class App {
 					continue;
 				}
 				
+				String writerName = null;
+				
+				for (Member member : members) {
+					if (member.id == foundArticle.memberId) {
+						writerName = member.name;
+						break;
+					}
+				}
+				
 				System.out.printf("== %d번 게시물 상세보기 ==\n", foundArticle.id);
 				System.out.printf("번호 : %d\n", foundArticle.id);
 				System.out.printf("작성일 : %s\n", foundArticle.regDate);
+				System.out.printf("작성자 : %s\n", writerName);
 				System.out.printf("제목 : %s\n", foundArticle.title);
 				System.out.printf("내용 : %s\n", foundArticle.body);
 				
@@ -326,7 +345,7 @@ public class App {
 		}
 		return null;
 	}
-
+	
 	private boolean isLoginIdDup(String loginId) {
 		for (Member member : members) {
 			if (member.loginId.equals(loginId)) {
