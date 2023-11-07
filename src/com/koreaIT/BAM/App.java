@@ -164,6 +164,11 @@ public class App {
 				
 			} else if (cmd.equals("article write")) {
 			
+				if (this.loginedMember == null) {
+					System.out.println("로그인 후 이용해주세요");
+					continue;
+				}
+				
 				System.out.println("== article write ==");
 				lastArticleId++;
 				String regDate = Util.getDate();
@@ -192,7 +197,7 @@ public class App {
 					break;
 				}
 
-				Article article = new Article(lastArticleId, regDate, title, body);
+				Article article = new Article(lastArticleId, regDate, loginedMember.id, title, body);
 
 				articles.add(article);
 
@@ -332,9 +337,9 @@ public class App {
 	}
 
 	private void makeTestData() {
-		articles.add(new Article(1, Util.getDate(), "제목1", "내용1"));
-		articles.add(new Article(2, Util.getDate(), "제목2", "내용2"));
-		articles.add(new Article(3, Util.getDate(), "제목3", "내용3"));
+		articles.add(new Article(1, Util.getDate(), 2, "제목1", "내용1"));
+		articles.add(new Article(2, Util.getDate(), 1, "제목2", "내용2"));
+		articles.add(new Article(3, Util.getDate(), 1, "제목3", "내용3"));
 		
 		members.add(new Member(1, Util.getDate(), "test1", "test1", "유저1"));
 		members.add(new Member(2, Util.getDate(), "test2", "test2", "유저2"));
