@@ -237,14 +237,7 @@ public class App {
 				for (int i = forPrintArticle.size() - 1; i >= 0; i--) {
 					Article article = forPrintArticle.get(i);
 					
-					String writerName = null;
-					
-					for (Member member : members) {
-						if (member.id == article.memberId) {
-							writerName = member.name;
-							break;
-						}
-					}
+					String writerName = getWriterNameByMemberId(article.memberId);
 					
 					System.out.printf("%d	|	%s	|	%s	|	%s\n", article.id, article.regDate, article.title, writerName);
 				}
@@ -261,14 +254,7 @@ public class App {
 					continue;
 				}
 				
-				String writerName = null;
-				
-				for (Member member : members) {
-					if (member.id == foundArticle.memberId) {
-						writerName = member.name;
-						break;
-					}
-				}
+				String writerName = getWriterNameByMemberId(foundArticle.memberId);
 				
 				System.out.printf("== %d번 게시물 상세보기 ==\n", foundArticle.id);
 				System.out.printf("번호 : %d\n", foundArticle.id);
@@ -328,6 +314,16 @@ public class App {
 		System.out.println("== 프로그램 종료 ==");
 	}
 	
+			
+	private String getWriterNameByMemberId(int memberId) {
+		for (Member member : members) {
+			if (member.id == memberId) {
+				return member.name; 
+			}
+		}
+		return null;
+	}
+
 	private Member getMemberByLoginId(String loginId) {
 		for (Member member : members) {
 			if (member.loginId.equals(loginId)) {
